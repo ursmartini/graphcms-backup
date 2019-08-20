@@ -4,17 +4,22 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node src/index.js",
+    "cms-export": "node src/export.js",
+    "cms-import": "node src/import.js",
     "test": "jest --forceExit --detectOpenHandles"
   },
   "dependencies": {
-    "node-fetch": "^2.6.0"
+    "fluture": "^11.0.0",
+    "graphql-fetch-schema": "^1.1.0",
+    "node-fetch": "^2.6.0",
+    "ramda": "^0.26.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "chai-nock": "^1.2.0",
     "jest": "^24.9.0",
+    "jest-plugin-fs": "^2.9.0",
     "nock": "^10.0.6"
   }
 }
