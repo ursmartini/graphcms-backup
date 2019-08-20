@@ -2,20 +2,30 @@ const fetch = require("node-fetch");
 
 class ApiClient {
 	constructor(endpoint, token) {
+		if (!endpoint) throw new Error("No endpoint specified");
+		if (!token) throw new Error("No token specified");
+
 		this.endpoint = endpoint
 		this.token = token
 	}
 
-	async export (endpoint, token) {
-		if (!this.endpoint) throw new Error("No endpoint specified");
-		if (!this.token) throw new Error("No token specified");
+	async export (cursor) {
 	
 		const res = await fetch(this.endpoint, {
+			method: "post",
+			body: JSON.stringify({
+				"fileType": "nodes",
+				"cursor": cursor
+			}),
 			headers: {
 				"Authorization": `Bearer ${this.token}`
 			}
 		});
-	
+
+		if (!res.ok) { 
+			throw new Error("API error")
+		}
+
 		const resContentType = res.headers.get('content-type')
 		if (resContentType != "application/json") {
 			throw new Error(
@@ -45,24 +55,22 @@ class ImportExport {
 	}
 
 	async export () {
-		//		const a = await this.apiClient.export()
-		console.log("A="+a);
-		console.log("hier");
-		___console.log(this.fileWriter.save)
-		console.log("da");
-		return
-		___console.log("3:"+this.fileWriter.save.mock.calls)
 
-		const b = await this.fileWriter.save()
-		console.log("B="+b);
-		return
-		console.log("HIER"+this.fileWriter.save);
-		let cursor;
-		while (true) {
-			let [chunk, cursor] = await this.apiClient.exportChunk(cursor)
-			await this.fileWriter.save(chunk)
-			cursor = newCursor;
-		}
+		const isEof = (res) => !res.isFull
+		const nextCursor = (res) => res?res.cursor:null
+
+// 		do {
+// 			let result = await this.apiClient.export(nextCursor())
+// 
+// 			let [data, cursor, eof] = this.converter.convert(chunk)
+// 			const foo = await this.fileWriter.save(data)
+// 			console.log(foo)
+// 
+// 			const cursor = a.cursor
+// 
+// 		} while (!isEof(result));
+
+
 	}
 }
 
