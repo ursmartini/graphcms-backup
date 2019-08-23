@@ -1,13 +1,23 @@
 const fetch = require("node-fetch");
-
 const R = require('ramda');
-const apiExport = R.curry(async (endpoint,token,cursor) => {
+
+// Fancy deconstruruing and default parameters pattern from here:
+// https://gist.github.com/ericelliott/f3c2a53a1d4100539f71
+const apiExport = async (endpoint, token, { fileType, cursor } = {}) => {
+
+	const body = {
+		"fileType": fileType || "nodes",
+		"cursor": cursor || {
+			"table": 0,
+			"row": 0,
+			"field": 0,
+			"array": 0
+		}
+	}
+
 	const res = await fetch(endpoint, {
 		method: "post",
-		body: JSON.stringify({
-			"fileType": "nodes",
-			"cursor": cursor
-		}),
+		body: JSON.stringify(body),
 		headers: {
 			"Authorization": `Bearer ${token}`
 		}
@@ -24,7 +34,7 @@ const apiExport = R.curry(async (endpoint,token,cursor) => {
 	}
 	let json = await res.json()
 	return json.out.jsonElements
-})
+}
 
 module.exports = {
 	apiExport
