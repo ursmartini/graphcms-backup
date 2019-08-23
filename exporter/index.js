@@ -28,7 +28,7 @@ const apiExport = async (endpoint, token, { fileType, cursor } = {}) => {
 	}
 
 	const resContentType = res.headers.get('content-type')
-	if (resContentType != "application/json") {
+	if (!resContentType.includes("application/json")) {
 		throw new Error(
 			`Invalid content-type: ${resContentType}` )
 	}

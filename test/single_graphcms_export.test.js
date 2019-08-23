@@ -89,6 +89,20 @@ describe('Content versioning', () => {
 				.toThrow("Invalid content-type: foo/bar")
 		});
 
+		test('Should not fail when API returns utf-8-json', async () => {
+
+			expect.assertions(1);
+			const scope = nock("http://endpoint").post("/api")
+				.reply(200,
+					JSON.stringify(sampleResponse),
+					{ "content-type": "application/json; charset=utf-8" }
+				)
+
+			await expect(myApiExport())
+				.resolves
+				.toEqual(sampleResponse.out.jsonElements)
+		});
+
 		test('Should fetch type', async () => {
 
 			const expectedBody = {
@@ -135,9 +149,7 @@ describe('Content versioning', () => {
 				.toEqual(sampleResponse.out.jsonElements)
 
 			scope.done()
-
 		});
-
 	});
 
 
