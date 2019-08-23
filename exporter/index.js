@@ -38,6 +38,11 @@ const apiExport = async (endpoint, token, { fileType, cursor } = {}) => {
 	return json.out.jsonElements
 }
 
+const resultWriter = async () => {
+	return true
+}
+
 module.exports = {
-	apiExport
+	apiExport,
+	resultWriter
 }
