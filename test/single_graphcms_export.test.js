@@ -17,7 +17,7 @@ const sampleResponse = {
 	}
 }
 
-const myApiExport = R.partial(apiExport, ["http://endpoint/api", "token"])
+const myApiExport = R.partial(apiExport, ["http://endpoint", "token"])
 
 describe('Content versioning', () => {
 	beforeEach(() => {
@@ -35,9 +35,9 @@ describe('Content versioning', () => {
 
 		test('Should request from API', async () => {
 			const scope = nock("http://endpoint")
-				.post("/api")
+				.post("/export")
 				.reply(
-					200, 
+					200,
 					JSON.stringify(sampleResponse), 
 					{"content-type": "application/json"}
 				)
@@ -51,7 +51,7 @@ describe('Content versioning', () => {
 
 		test('Should fail when API does not respond', async () => {
 			const scope = nock("http://endpoint")
-				.post("/api")
+				.post("/export")
 				.reply(500)
 
 			await expect(myApiExport())
@@ -63,7 +63,7 @@ describe('Content versioning', () => {
 
 		test('Should request from API using content-type json', async () => {
 			const scope = nock("http://endpoint")
-				.post("/api")
+				.post("/export")
 				.reply(200)
 				.on("request", (req, interceptor, body) => {
 					expect(req.headers).toBeDefined()
@@ -81,7 +81,7 @@ describe('Content versioning', () => {
 
 		test('Should request from API using token', async () => {
 			const scope = nock("http://endpoint")
-				.post("/api")
+				.post("/export")
 				.reply(200)
 				.on("request", (req, interceptor, body) => {
 					expect(req.headers).toBeDefined()
@@ -100,7 +100,7 @@ describe('Content versioning', () => {
 		test('Should fail when API returns non-json', async () => {
 
 			expect.assertions(1);
-			const scope = nock("http://endpoint").post("/api")
+			const scope = nock("http://endpoint").post("/export")
 				.reply(200, "foobar", { "content-type": "foo/bar" })
 
 			await expect(myApiExport())
@@ -111,7 +111,7 @@ describe('Content versioning', () => {
 		test('Should not fail when API returns utf-8-json', async () => {
 
 			expect.assertions(1);
-			const scope = nock("http://endpoint").post("/api")
+			const scope = nock("http://endpoint").post("/export")
 				.reply(200,
 					JSON.stringify(sampleResponse),
 					{ "content-type": "application/json; charset=utf-8" }
@@ -129,7 +129,7 @@ describe('Content versioning', () => {
 				"cursor": { "table": 0, "row": 0, "field": 0, "array": 0 }
 			}
 			const scope = nock("http://endpoint")
-				.post("/api")
+				.post("/export")
 				.reply(
 					200,
 					JSON.stringify(sampleResponse),
@@ -153,7 +153,7 @@ describe('Content versioning', () => {
 				"cursor": { "foo": "bar" }
 			}
 			const scope = nock("http://endpoint")
-				.post("/api")
+				.post("/export")
 				.reply(
 					200,
 					JSON.stringify(sampleResponse),

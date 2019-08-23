@@ -1,9 +1,11 @@
 const { apiExport } = require("./exporter");
 
 const app = async () => {
-	foo = await apiExport(process.env.ENDPOINT, process.env.TOKEN)
-	console.log("foo is ");
-	console.log(foo)
+	try {
+		foo = await apiExport(process.env.ENDPOINT, process.env.TOKEN)
+		console.log("foo is ");
+		console.log(foo)
+	} catch (err) { console.log(err) }
 }
 
 app()

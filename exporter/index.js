@@ -15,7 +15,7 @@ const apiExport = async (endpoint, token, { fileType, cursor } = {}) => {
 		}
 	}
 
-	const res = await fetch(endpoint, {
+	const res = await fetch(endpoint + "/export", {
 		method: "post",
 		body: JSON.stringify(body),
 		headers: {
