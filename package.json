@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node run.js",
     "test": "jest --forceExit --detectOpenHandles"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "chai-http": "^4.3.0",
     "chai-nock": "^1.2.0",
     "jest": "^24.9.0",
+    "jest-plugin-fs": "^2.9.0",
     "nock": "^10.0.6"
   }
 }

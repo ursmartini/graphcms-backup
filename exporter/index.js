@@ -35,7 +35,7 @@ const apiExport = async (endpoint, token, { fileType, cursor } = {}) => {
 	}
 
 	let json = await res.json()
-	return json.out.jsonElements
+	return json
 }
 
 const resultWriter = async () => {

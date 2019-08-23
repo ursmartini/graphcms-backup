@@ -1,11 +1,18 @@
 const { apiExport } = require("./exporter");
+const fs = require('fs');
 
-const folder = "tmp"
+
+const dir = "./tmp"
+if (!fs.existsSync(dir)){
+	fs.mkdirSync(dir);
+}
 
 const app = async () => {
 	try {
 		let chunk = await apiExport(process.env.ENDPOINT, process.env.TOKEN)
-		await resultWriter(folder, chunk)
+		fs.writeFileSync(dir + "/chunk.json", JSON.stringify(chunk))
+
+
 	} catch (err) { console.log(err) }
 }
 
