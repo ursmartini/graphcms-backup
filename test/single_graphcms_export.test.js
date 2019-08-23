@@ -61,6 +61,24 @@ describe('Content versioning', () => {
 			scope.done()
 		});
 
+		test('Should request from API using content-type json', async () => {
+			const scope = nock("http://endpoint")
+				.post("/api")
+				.reply(200)
+				.on("request", (req, interceptor, body) => {
+					expect(req.headers).toBeDefined()
+					expect(req.headers["content-type"]).toBeDefined()
+					expect(req.headers["content-type"])
+						.toContainEqual("application/json")
+				})
+
+			// we're not interested in the actual result or further logic
+			// but only in the passing of auth-headers
+			try { await myApiExport() } catch (e) {}
+
+			scope.done()
+		})
+
 		test('Should request from API using token', async () => {
 			const scope = nock("http://endpoint")
 				.post("/api")
@@ -68,7 +86,8 @@ describe('Content versioning', () => {
 				.on("request", (req, interceptor, body) => {
 					expect(req.headers).toBeDefined()
 					expect(req.headers.authorization).toBeDefined()
-					expect(req.headers.authorization).toContainEqual("Bearer token")
+					expect(req.headers.authorization)
+						.toContainEqual("Bearer token")
 				})
 
 			// we're not interested in the actual result or further logic
@@ -151,6 +170,5 @@ describe('Content versioning', () => {
 			scope.done()
 		});
 	});
-
 
 });

@@ -19,7 +19,8 @@ const apiExport = async (endpoint, token, { fileType, cursor } = {}) => {
 		method: "post",
 		body: JSON.stringify(body),
 		headers: {
-			"Authorization": `Bearer ${token}`
+			"Authorization": `Bearer ${token}`,
+			"Content-type": "application/json"
 		}
 	});
 
@@ -32,6 +33,7 @@ const apiExport = async (endpoint, token, { fileType, cursor } = {}) => {
 		throw new Error(
 			`Invalid content-type: ${resContentType}` )
 	}
+
 	let json = await res.json()
 	return json.out.jsonElements
 }

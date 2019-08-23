@@ -1,7 +1,9 @@
 const { apiExport } = require("./exporter");
 
-console.log(process.env.ENDPOINT)
-console.log(process.env.TOKEN)
+const app = async () => {
+	foo = await apiExport(process.env.ENDPOINT, process.env.TOKEN)
+	console.log("foo is ");
+	console.log(foo)
+}
 
-apiExport(process.env.ENDPOINT, process.env.TOKEN)
-
+app()
