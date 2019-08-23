@@ -112,27 +112,31 @@ describe('Content versioning', () => {
 
 			scope.done()
 		});
-//		test('Should fetch from cursor', async () => {
-//
-//			const expectedBody = {
-//				"fileType": "nodes",
-//				"cursor": { "foo": "bar" }
-//			}
-//			const scope = nock("http://endpoint")
-//				.post("/api", JSON.stringify(expectedBody))
-//				.reply(
-//					200,
-//					JSON.stringify(sampleResponse),
-//					{ "content-type": "application/json" }
-//				)
-//
-//			await expect(myApiExport({ "cursor": {"foo": "bar"}}))
-//				.resolves
-//				.toEqual(sampleResponse.out.jsonElements)
-//
-//			scope.done()
-//
-//		});
+
+		test('Should fetch from cursor', async () => {
+
+			const expectedBody = {
+				"fileType": "nodes",
+				"cursor": { "foo": "bar" }
+			}
+			const scope = nock("http://endpoint")
+				.post("/api")
+				.reply(
+					200,
+					JSON.stringify(sampleResponse),
+					{ "content-type": "application/json" }
+				)
+				.on("request", (req, interceptor, body) => {
+					expect(JSON.parse(body)).toEqual(expectedBody)
+				})
+
+			await expect(myApiExport({ "cursor": {"foo": "bar"}}))
+				.resolves
+				.toEqual(sampleResponse.out.jsonElements)
+
+			scope.done()
+
+		});
 
 	});
 
