@@ -2,16 +2,39 @@ const { apiExport } = require("./exporter");
 const fs = require('fs');
 
 
-const dir = "./tmp"
+const dir = "./workdir"
 if (!fs.existsSync(dir)){
 	fs.mkdirSync(dir);
 }
 
+const exportCategory = async (category) => {
+
+	const categoryDir = dir + "/" + category
+	if (!fs.existsSync(categoryDir)){
+		fs.mkdirSync(categoryDir);
+	}
+	let chunkNum = 1
+	let chunk, cursor;
+	do {
+		console.log(`Fetching chunk ${chunkNum} of category ${category}`)
+		chunk = await apiExport(
+			process.env.ENDPOINT, process.env.TOKEN,
+			{ cursor: cursor, fileType: category }
+		)
+		fs.writeFileSync(
+			`${categoryDir}/chunk_${String(chunkNum).padStart(5, '0')}.json`, 
+			JSON.stringify(chunk)
+		)
+		cursor = chunk.cursor
+		chunkNum++
+	}
+	while (chunk.isFull)
+}
+
 const app = async () => {
 	try {
-		let chunk = await apiExport(process.env.ENDPOINT, process.env.TOKEN)
-		fs.writeFileSync(dir + "/chunk.json", JSON.stringify(chunk))
 
+		[ "nodes", "list", "relations"].map(exportCategory)
 
 	} catch (err) { console.log(err) }
 }
