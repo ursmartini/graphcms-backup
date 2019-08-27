@@ -9,21 +9,21 @@ if (!process.env.TOKEN) {
 	process.exit(1);
 }
 
-
-
 const { apiExport } = require("./exporter");
 const fs = require('fs');
+const timestamp = new Date().toISOString();
 
-const dir = "./workdir"
-if (!fs.existsSync(dir)){
-	fs.mkdirSync(dir);
+const baseDir = "./workdir"
+if (!fs.existsSync(baseDir)){
+	fs.mkdirSync(baseDir);
 }
+fs.mkdirSync(`${baseDir}/${timestamp}`);
 
 const exportCategory = async (category) => {
 
-	const categoryDir = dir + "/" + category
-	if (!fs.existsSync(categoryDir)){
-		fs.mkdirSync(categoryDir);
+	const dir = `${baseDir}/${category}`
+	if (!fs.existsSync(dir)){
+		fs.mkdirSync(dir);
 	}
 	let chunkNum = 1
 	let chunk, cursor;
@@ -34,7 +34,7 @@ const exportCategory = async (category) => {
 			{ cursor: cursor, fileType: category }
 		)
 		fs.writeFileSync(
-			`${categoryDir}/chunk_${String(chunkNum).padStart(5, '0')}.json`, 
+			`${dir}/chunk_${String(chunkNum).padStart(5, '0')}.json`, 
 			JSON.stringify(chunk)
 		)
 		cursor = chunk.cursor
