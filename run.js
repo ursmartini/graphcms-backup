@@ -1,6 +1,18 @@
+
+if (!process.env.ENDPOINT) {
+	console.error("ENV variable ENDPOINT missing");
+	process.exit(1);
+}
+
+if (!process.env.TOKEN) {
+	console.error("ENV variable TOKEN missing");
+	process.exit(1);
+}
+
+
+
 const { apiExport } = require("./exporter");
 const fs = require('fs');
-
 
 const dir = "./workdir"
 if (!fs.existsSync(dir)){
