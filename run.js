@@ -13,18 +13,16 @@ const { apiExport } = require("./exporter");
 const fs = require('fs');
 const timestamp = new Date().toISOString();
 
-const baseDir = "./workdir"
-if (!fs.existsSync(baseDir)){
-	fs.mkdirSync(baseDir);
-}
-fs.mkdirSync(`${baseDir}/${timestamp}`);
+const mkdir = dir => !fs.existsSync(dir) && fs.mkdirSync(dir)
+
+const baseDir = `./workdir/${timestamp}`
+mkdir(baseDir);
 
 const exportCategory = async (category) => {
 
 	const dir = `${baseDir}/${category}`
-	if (!fs.existsSync(dir)){
-		fs.mkdirSync(dir);
-	}
+	mkdir(dir);
+
 	let chunkNum = 1
 	let chunk, cursor;
 	do {
