@@ -4,10 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node run.js",
+    "cms-export": "node src/export.js",
+    "cms-import": "node src/import.js",
     "test": "jest --forceExit --detectOpenHandles"
   },
   "dependencies": {
+    "fluture": "^11.0.0",
+    "graphql-fetch-schema": "^1.1.0",
     "node-fetch": "^2.6.0",
     "ramda": "^0.26.1"
   },

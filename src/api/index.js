@@ -1,5 +1,4 @@
 const fetch = require("node-fetch");
-const R = require('ramda');
 
 // Fancy deconstruruing and default parameters pattern from here:
 // https://gist.github.com/ericelliott/f3c2a53a1d4100539f71
@@ -34,15 +33,28 @@ const apiExport = async (endpoint, token, { fileType, cursor } = {}) => {
 			`Invalid content-type: ${resContentType}` )
 	}
 
-	let json = await res.json()
-	return json
+	return await res.json()
 }
 
-const resultWriter = async () => {
-	return true
+const apiImport = async (endpoint, token, category, data) => {
+
+	const res = await fetch(endpoint + "/import", {
+		method: "post",
+		body: `{ "valueType": "${category}", "values": ${data} }`,
+		headers: {
+			"Authorization": `Bearer ${token}`,
+			"Content-type": "application/json"
+		}
+	});
+
+	if (!res.ok) {
+		throw new Error(res.statusText + ", " + (await res.text()))
+	}
+
+	return await res.json()
 }
 
 module.exports = {
 	apiExport,
-	resultWriter
+	apiImport
 }

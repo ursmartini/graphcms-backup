@@ -7,7 +7,7 @@ chai.use(chaiNock);
 
 nock.disableNetConnect()
 
-const { apiExport } = require('../exporter');
+const { apiExport } = require('../src/api');
 
 const sampleResponse = {
 	"out": {

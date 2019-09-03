@@ -719,6 +719,13 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
+concurrify@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/concurrify/-/concurrify-1.1.1.tgz#e903b6500b2ce9af7ac51bd5f2161f8db33cfb41"
+  dependencies:
+    sanctuary-show "^1.0.0"
+    sanctuary-type-identifiers "^2.0.0"
+
 console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
@@ -1056,6 +1063,14 @@ find-up@^3.0.0:
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-3.0.0.tgz#49169f1d7993430646da61ecc5ae355c21c97b73"
   dependencies:
     locate-path "^3.0.0"
+
+fluture@^11.0.0:
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/fluture/-/fluture-11.0.3.tgz#040ccdcc48952a1bfe60187834b2ebdc20b92ccc"
+  dependencies:
+    concurrify "^1.1.1"
+    sanctuary-show "^1.0.0"
+    sanctuary-type-identifiers "^2.0.0"
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -2653,6 +2668,14 @@ safe-regex@^1.1.0:
 "safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
+
+sanctuary-show@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-show/-/sanctuary-show-1.0.0.tgz#72deb4812f9decec850e03286807dca1c97a1d61"
+
+sanctuary-type-identifiers@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-identifiers/-/sanctuary-type-identifiers-2.0.1.tgz#fc524cf6dd92cebfcbb0dd9509eff193159a20ed"
 
 sane@^4.0.3:
   version "4.1.0"

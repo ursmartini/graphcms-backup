@@ -9,7 +9,7 @@ if (!process.env.TOKEN) {
 	process.exit(1);
 }
 
-const { apiExport } = require("./exporter");
+const { apiExport } = require("./api");
 const fs = require('fs');
 const timestamp = new Date().toISOString();
 
@@ -33,17 +33,19 @@ const exportCategory = async (category) => {
 		)
 		fs.writeFileSync(
 			`${dir}/chunk_${String(chunkNum).padStart(5, '0')}.json`, 
-			JSON.stringify(chunk)
+			JSON.stringify(chunk.out.jsonElements)
 		)
 		cursor = chunk.cursor
 		chunkNum++
 	}
 	while (chunk.isFull)
+
 }
 
 const app = async () => {
 	try {
 
+		console.log(`Exporting into ${baseDir}`);
 		[ "nodes", "list", "relations"].map(exportCategory)
 
 	} catch (err) { console.log(err) }
