@@ -11,7 +11,7 @@
   "dependencies": {
     "fluture": "^11.0.0",
     "graphql-fetch-schema": "^1.1.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
